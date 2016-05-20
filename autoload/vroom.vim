@@ -244,10 +244,15 @@ function s:Run(cmd)
   elseif g:vroom_use_dispatch && exists(':Dispatch')
     exec ":Dispatch " . a:cmd
   elseif g:vroom_use_nvim && has('nvim')
-    exec ":new | call termopen('". a:cmd . "')"
+    call s:RunTestsInNvimTerminal(a:cmd)
   else
     exec ":!" . a:cmd
   end
+endfunction
+
+function s:RunTestsInNvimTerminal(cmd)
+  exec ":topleft new | call termopen('". a:cmd . "')"
+  nmap <buffer> q :q<CR>
 endfunction
 
 " Internal: Clear the screen prior to running specs for vimux
