@@ -57,6 +57,10 @@ if !exists("g:vroom_use_dispatch")
   let g:vroom_use_dispatch = 0
 endif
 
+if !exists("g:vroom_use_nvim")
+  let g:vroom_use_nvim = 0
+endif
+
 if !exists("g:vroom_use_vimshell")
   let g:vroom_use_vimshell = 0
 endif
@@ -239,6 +243,8 @@ function s:Run(cmd)
     exec "VimShellExecute " . a:cmd
   elseif g:vroom_use_dispatch && exists(':Dispatch')
     exec ":Dispatch " . a:cmd
+  elseif g:vroom_use_nvim && has('nvim')
+    exec ":new term://" . a:cmd
   else
     exec ":!" . a:cmd
   end
