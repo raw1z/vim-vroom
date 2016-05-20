@@ -244,8 +244,7 @@ function s:Run(cmd)
   elseif g:vroom_use_dispatch && exists(':Dispatch')
     exec ":Dispatch " . a:cmd
   elseif g:vroom_use_nvim && has('nvim')
-    exec ":new"
-    call termopen(a:cmd)
+    exec ":new | call termopen(". a:cmd . ")"
   else
     exec ":!" . a:cmd
   end
